@@ -20,15 +20,19 @@ public class Challenge3 {
 		// 1. Druk alle namen van de lijst af in gesorteerde volgorde.
 		// Zorg dat de eerste letter van een naam steeds met hoofdletter begint.
 		
-		
+		topNames.stream().sorted().forEach(s -> System.out.println(s.substring(0,1).toUpperCase() + s.substring(1)));
+
 		// 2. Druk alle namen af die beginnen met A (of a)
 		// Zorg dat de eerste letter van een naam steeds met hoofdletter begint.
 		// Verwachte output: Amelia Ava
-		
-		
+
+		topNames.stream().sorted().filter(s -> s.toUpperCase().startsWith("A")).forEach(s -> System.out.print(s.substring(0,1).toUpperCase() + s.substring(1) + " "));
+		System.out.println();
+
 		// 3. Hoeveel namen beginnen er met A
 		// Verwachte output: 2
 		
-		
+		long count = topNames.stream().sorted().filter(s -> s.toUpperCase().startsWith("A")).count();
+		System.out.println(count);
 	}
 }
