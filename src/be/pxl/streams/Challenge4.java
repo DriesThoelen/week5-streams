@@ -18,7 +18,7 @@ public class Challenge4 {
 		// 1. Geef de gemiddelde leeftijd van alle personen
 		// Verwachte output:  Gemiddelde leeftijd: 25.6
 		
-		OptionalDouble averageAge = personen.stream().mapToInt(p -> p.getAge()).average();
+		OptionalDouble averageAge = personen.stream().mapToInt(Person::getAge).average();
 
 		if (averageAge.isPresent()) {
 			System.out.println("Gemiddelde leeftijd: " + averageAge.getAsDouble());
@@ -37,13 +37,14 @@ public class Challenge4 {
 		// Verwachte output: Aantal mannen boven 24: 2
 
 		long numberOfMenOlderThan24 = personen.stream().filter(p -> p.getGender() == Gender.MALE).filter(p -> p.getAge() > 24).count();
+		//long numberOfMenOlderThan24 = personen.stream().filter(p -> p.getGender() == Gender.MALE && p.getAge() > 24).count(); MAG OOK IN 1 FILTER
 
 		System.out.println("Aantal mannen boven 24: " + numberOfMenOlderThan24);
 
 		// 4. Geef de gemiddelde leeftijd van alle mannen
 		// Gemiddelde leeftijd mannen: 26.0
 
-		OptionalDouble averageAgeOfMen = personen.stream().filter(p -> p.getGender() == Gender.MALE).mapToInt(p -> p.getAge()).average();
+		OptionalDouble averageAgeOfMen = personen.stream().filter(p -> p.getGender() == Gender.MALE).mapToInt(Person::getAge).average();
 
 		if (averageAgeOfMen.isPresent()) {
 			System.out.println("Gemiddelde leeftijd mannen: " + averageAgeOfMen.getAsDouble());
@@ -60,7 +61,9 @@ public class Challenge4 {
 		Integer totalAgeReduce = personen.stream().map(Person::getAge).reduce(0, (a, b) -> a + b);
 */
 
-		Person newPerson = new Person(personen.stream().map(p -> p.getName().substring(0,1)).reduce("", (a, b) -> a + b), personen.stream().map(Person::getAge).reduce(0, (a, b) -> a + b), Gender.FEMALE);
+		//Person newPerson = new Person(personen.stream().map(p -> p.getName().substring(0,1)).reduce("", (a, b) -> a + b), personen.stream().map(Person::getAge).reduce(0, (a, b) -> a + b), Gender.FEMALE);
+
+		Person newPerson = personen.stream().reduce(new Person("", 0, Gender.FEMALE), (p1,p2) -> { p1.setAge(p1.getAge() + p2.getAge()); p1.setName(p1.getName() + p2.getName().substring(0, 1)); return  p1;});
 
 		System.out.println(newPerson.getName() + " " + newPerson.getAge());
 	}

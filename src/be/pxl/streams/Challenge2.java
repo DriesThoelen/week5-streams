@@ -14,7 +14,7 @@ public class Challenge2 {
 
 		Random random = new Random();
 
-		OptionalInt max = random.ints(10, 0,30)/*.peek(n -> System.out.println("###" + n))*/.filter(n -> n % 3 == 0)/*.peek(n -> System.out.println("##" + n))*/.max();
+		OptionalInt max = random.ints(10, 0,31)/*.peek(n -> System.out.println("###" + n))*/.filter(n -> n % 3 == 0)/*.peek(n -> System.out.println("##" + n))*/.max();
 
 		if (max.isPresent()) {
 			System.out.println("Maximum : " + max.getAsInt());
